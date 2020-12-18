@@ -3,10 +3,13 @@ service: mypackage
 provider:
   name: aws
   runtime: haskell
+  memorySize: 512
 
 functions:
   mypackage-func:
     handler: mypackage.mypackage-exe
+    events:
+      - http: GET /hello
     # Here, mypackage is the Haskell package name and myfunc is the executable
     # name as defined in the Cabal file. The handler field may be prefixed
     # with a path of the form `dir1/.../dirn`, relative to `serverless.yml`,
@@ -16,3 +19,4 @@ functions:
 
 plugins:
   - serverless-haskell
+  - serverless-offline
